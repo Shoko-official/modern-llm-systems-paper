@@ -38,6 +38,41 @@ REQUIRED_DIRECTORIES = [
     "tests",
 ]
 
+FOUNDATION_MARKERS = {
+    "paper/README.md": [
+        "# Paper",
+        "## Expected Role",
+        "## Repository Boundary",
+        "## Current Limits",
+    ],
+    "sections/README.md": [
+        "# Sections",
+        "## Expected Role",
+        "## Section Inventory",
+        "## Current Limits",
+        "| Section | Purpose | Draft status |",
+        "| Abstract |",
+        "| Conclusion |",
+    ],
+    "references/README.md": [
+        "# References",
+        "## Expected Role",
+        "## Citation Handoff",
+        "## Readiness States",
+        "## Paper Drafting Rules",
+        "## Current Limits",
+        "missing_evidence",
+        "missing_citation_detail",
+    ],
+    "figures/README.md": [
+        "# Figures",
+        "## Expected Role",
+        "## Current Limits",
+        "Mermaid",
+        "Python-generated images",
+    ],
+}
+
 SECRET_PATTERNS = [
     re.compile(pattern)
     for pattern in [
@@ -82,6 +117,17 @@ def validate_required_paths() -> None:
         fail("; ".join(details))
 
 
+def validate_foundation_files() -> None:
+    for relative_path, markers in FOUNDATION_MARKERS.items():
+        text = read_text(ROOT / relative_path)
+        missing_markers = [marker for marker in markers if marker not in text]
+        if missing_markers:
+            fail(
+                f"{relative_path} is missing expected marker(s): "
+                + ", ".join(missing_markers)
+            )
+
+
 def lint_text() -> None:
     for path in iter_text_files():
         text = read_text(path)
@@ -93,6 +139,7 @@ def lint_text() -> None:
 
 def run_validate() -> None:
     validate_required_paths()
+    validate_foundation_files()
 
 
 def run_lint() -> None:
