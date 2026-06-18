@@ -20,9 +20,22 @@ REQUIRED_FILES = [
     "figures/README.md",
     "paper/main.md",
     "paper/README.md",
+    "references/index.md",
     "references/README.md",
     "scripts/figures/README.md",
+    "sections/abstract.md",
+    "sections/agents-and-tool-use.md",
+    "sections/conclusion.md",
+    "sections/decision-matrix.md",
+    "sections/evaluation.md",
+    "sections/inference-and-serving.md",
+    "sections/introduction.md",
+    "sections/observability.md",
+    "sections/retrieval-and-memory.md",
     "sections/README.md",
+    "sections/security-and-governance.md",
+    "sections/system-layers.md",
+    "sections/training-and-adaptation.md",
     "tests/README.md",
 ]
 
@@ -72,6 +85,12 @@ FOUNDATION_MARKERS = {
         "missing_evidence",
         "missing_citation_detail",
     ],
+    "references/index.md": [
+        "# Reference Index",
+        "## Future Entry Shape",
+        "## Current Entries",
+        "No reference entries yet.",
+    ],
     "figures/README.md": [
         "# Figures",
         "## Expected Role",
@@ -80,6 +99,21 @@ FOUNDATION_MARKERS = {
         "Python-generated images",
     ],
 }
+
+SECTION_STUB_FILES = [
+    "sections/abstract.md",
+    "sections/agents-and-tool-use.md",
+    "sections/conclusion.md",
+    "sections/decision-matrix.md",
+    "sections/evaluation.md",
+    "sections/inference-and-serving.md",
+    "sections/introduction.md",
+    "sections/observability.md",
+    "sections/retrieval-and-memory.md",
+    "sections/security-and-governance.md",
+    "sections/system-layers.md",
+    "sections/training-and-adaptation.md",
+]
 
 SECRET_PATTERNS = [
     re.compile(pattern)
@@ -136,6 +170,18 @@ def validate_foundation_files() -> None:
             )
 
 
+def validate_section_stubs() -> None:
+    required_markers = ["Draft status: Not drafted.", "Purpose:", "Evidence requirement:"]
+    for relative_path in SECTION_STUB_FILES:
+        text = read_text(ROOT / relative_path)
+        missing_markers = [marker for marker in required_markers if marker not in text]
+        if missing_markers:
+            fail(
+                f"{relative_path} is missing expected marker(s): "
+                + ", ".join(missing_markers)
+            )
+
+
 def lint_text() -> None:
     for path in iter_text_files():
         text = read_text(path)
@@ -148,6 +194,7 @@ def lint_text() -> None:
 def run_validate() -> None:
     validate_required_paths()
     validate_foundation_files()
+    validate_section_stubs()
 
 
 def run_lint() -> None:
