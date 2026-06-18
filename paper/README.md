@@ -1,11 +1,9 @@
 # Paper
 
-This directory is reserved for the paper entrypoint and assembly notes.
+This directory contains the paper entrypoint placeholder and assembly notes.
 
-The first paper entrypoint will be introduced by a dedicated issue after the
-section inventory and citation handoff rules are clear. Until then, this
-directory should describe assembly expectations without adding scientific
-content.
+The current entrypoint is `main.md`. It exists only to anchor future assembly
+work. It is not a scientific draft.
 
 ## Expected Role
 
@@ -29,4 +27,4 @@ for paper use.
 ## Current Limits
 
 Do not add scientific prose, real bibliography entries, generated figures, or a
-LaTeX build system from this layout issue.
+LaTeX build system from this entrypoint issue.

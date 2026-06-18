@@ -18,6 +18,7 @@ REQUIRED_FILES = [
     ".github/PULL_REQUEST_TEMPLATE.md",
     ".github/workflows/ci.yml",
     "figures/README.md",
+    "paper/main.md",
     "paper/README.md",
     "references/README.md",
     "scripts/figures/README.md",
@@ -44,6 +45,13 @@ FOUNDATION_MARKERS = {
         "## Expected Role",
         "## Repository Boundary",
         "## Current Limits",
+    ],
+    "paper/main.md": [
+        "# Modern LLM Systems 2026",
+        "## Assembly Inputs",
+        "## Current Status",
+        "not a scientific draft",
+        "No scientific prose",
     ],
     "sections/README.md": [
         "# Sections",
