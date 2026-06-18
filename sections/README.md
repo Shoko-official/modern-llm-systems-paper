@@ -37,6 +37,23 @@ Initial section inventory:
 This inventory is a planning list, not paper prose. Section wording may change
 as evidence and paper structure mature.
 
+## Stub Files
+
+Current neutral stubs:
+
+* `abstract.md`
+* `introduction.md`
+* `system-layers.md`
+* `training-and-adaptation.md`
+* `inference-and-serving.md`
+* `retrieval-and-memory.md`
+* `agents-and-tool-use.md`
+* `evaluation.md`
+* `security-and-governance.md`
+* `observability.md`
+* `decision-matrix.md`
+* `conclusion.md`
+
 ## Current Limits
 
 This directory does not yet contain scientific section drafts. Do not add claims
