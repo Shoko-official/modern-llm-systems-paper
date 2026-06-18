@@ -5,6 +5,8 @@ This directory is reserved for paper-side reference material.
 The research ledger is the source of evidence readiness. This directory should
 only hold paper-facing reference artifacts once the handoff rules are clear.
 
+The current placeholder index is `index.md`.
+
 ## Expected Role
 
 Future files in this directory may contain:
@@ -55,3 +57,6 @@ Do not add final bibliography entries from this handoff issue.
 
 Do not add real bibliography entries, citation commands, or paper-ready citation
 lists from this handoff issue.
+
+The reference index is not a bibliography and should remain empty until a
+dedicated issue introduces paper-facing entries from approved ledger sources.
