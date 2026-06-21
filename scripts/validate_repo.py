@@ -22,6 +22,7 @@ REQUIRED_FILES = [
     "figures/kv_cache_memory_curve.png",
     "paper/main.md",
     "paper/README.md",
+    "references/bibliography.bib",
     "references/index.md",
     "references/README.md",
     "scripts/figures/README.md",
