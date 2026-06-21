@@ -8,10 +8,17 @@ feedback.
 Evidence requirement: Future operational claims must link to approved ledger
 sources or remain out of paper prose.
 
-## Draft Content Stub
+## Telemetry and Tracing
 
-* **Telemetry and Tracing**: Neutral placeholder for trace collections and system spans.
-* **Logging and Debugging**: Neutral placeholder for production logging and system execution debugging.
-* **Feedback Loops**: Neutral placeholder for user feedback loop ingestion and continuous improvement.
+* **Distributed Tracing**: Implementation of standard spans and context propagation for distributed execution paths [@source-dapper-2010].
+* **System Spans**: Tracking inference, tool call latency, and router decision steps dynamically.
 
-This section drafts observability systems, covering monitoring, traces, and feedback loop mechanisms.
+## Logging and Debugging
+
+* **Production Logging**: Structured JSON logging for system execution debugging, routing errors, and component availability.
+* **Context Preservation**: Retaining task context across multi-agent loops to ease offline trace analysis.
+
+## Feedback Loops
+
+* **User Feedback Loops**: Telemetry capture of user ratings and implicit signals for continuous evaluation.
+* **Trace Analytics**: Processing aggregated trace structures to spot performance bottlenecks and drift patterns.

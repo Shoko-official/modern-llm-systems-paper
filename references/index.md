@@ -21,6 +21,8 @@ Future entries should identify:
 |---|---|---|---|---|---|
 | source-attention-2017 | source-placeholder-alpha-method-2026 | claim-alpha-neutral-performance | sections/introduction.md | ready_for_bibliography | None |
 | source-kv-cache-2023 | source-placeholder-delta-optimizer-2026 | claim-delta-memory-footprint | sections/inference-and-serving.md | missing_citation_detail | page number locator needed |
+| source-dapper-2010 | source-placeholder-gamma-framework-2026 | claim-gamma-integration-flexibility | sections/observability.md | ready_for_bibliography | None |
+| source-adversarial-2024 | source-placeholder-epsilon-scheduler-2026 | claim-epsilon-allocation-efficiency | sections/security-and-governance.md | missing_citation_detail | page number locator needed |
 
 ## Current Limits
 
