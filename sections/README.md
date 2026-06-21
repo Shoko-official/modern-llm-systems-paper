@@ -24,13 +24,13 @@ Initial section inventory:
 | Abstract | Summarize the paper after the main sections stabilize. | Drafted |
 | Introduction | Define the paper scope, audience, and motivating questions. | Drafted |
 | System Layers | Organize the major layers of modern LLM systems. | Drafted |
-| Training and Adaptation | Reserve space for training, post-training, and alignment discussion. | Not drafted |
-| Inference and Serving | Reserve space for runtime, latency, throughput, and cost discussion. | Not drafted |
-| Retrieval and Memory | Reserve space for retrieval, grounding, and memory-related systems. | Not drafted |
-| Agents and Tool Use | Reserve space for agent runtime, tool use, and control-loop discussion. | Not drafted |
+| Training and Adaptation | Reserve space for training, post-training, and alignment discussion. | Drafted |
+| Inference and Serving | Reserve space for runtime, latency, throughput, and cost discussion. | Drafted |
+| Retrieval and Memory | Reserve space for retrieval, grounding, and memory-related systems. | Drafted |
+| Agents and Tool Use | Reserve space for agent runtime, tool use, and control-loop discussion. | Drafted |
 | Evaluation | Reserve space for quality, reliability, safety, and system evaluation. | Not drafted |
 | Security and Governance | Reserve space for risk, policy, permissions, and operational controls. | Not drafted |
-| Observability | Reserve space for telemetry, tracing, debugging, and production feedback. | Not drafted |
+| Observability | Reserve space for telemetry, tracing, debugging, and production feedback. | Drafted |
 | Decision Matrix | Reserve space for comparison tables and design tradeoffs. | Not drafted |
 | Conclusion | Summarize final findings after evidence-backed sections exist. | Not drafted |
 
