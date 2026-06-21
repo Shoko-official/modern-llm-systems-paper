@@ -14,3 +14,17 @@ must reference approved ledger records.
 * **Safety Evaluation**: Neutral placeholder for assessing model safety, drift, and jailbreak resistance.
 
 This section drafts the evaluation methods and metrics utilized to measure quality and performance characteristics.
+
+## System Evaluation Metrics
+
+<!-- EVAL_METRICS_START -->
+| Metric | Value |
+|---|---|
+| Mean Reciprocal Rank (MRR) | 1.0000 |
+| Recall@5 | 0.8667 |
+| Recall@10 | 0.8667 |
+| Citation Accuracy | 1.0000 |
+| Citation Grounding | 1.0000 |
+| Average TTFT | 0.1620s |
+| Average Throughput | 40.2800 tokens/s |
+<!-- EVAL_METRICS_END -->
