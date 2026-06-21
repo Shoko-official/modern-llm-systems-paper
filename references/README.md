@@ -5,7 +5,7 @@ This directory is reserved for paper-side reference material.
 The research ledger is the source of evidence readiness. This directory should
 only hold paper-facing reference artifacts once the handoff rules are clear.
 
-The current placeholder index is `index.md`.
+The current placeholder index is `index.md`, and the bibliography placeholder is `bibliography.bib`.
 
 ## Expected Role
 
