@@ -28,11 +28,11 @@ Initial section inventory:
 | Inference and Serving | Reserve space for runtime, latency, throughput, and cost discussion. | Drafted |
 | Retrieval and Memory | Reserve space for retrieval, grounding, and memory-related systems. | Drafted |
 | Agents and Tool Use | Reserve space for agent runtime, tool use, and control-loop discussion. | Drafted |
-| Evaluation | Reserve space for quality, reliability, safety, and system evaluation. | Not drafted |
-| Security and Governance | Reserve space for risk, policy, permissions, and operational controls. | Not drafted |
+| Evaluation | Reserve space for quality, reliability, safety, and system evaluation. | Drafted |
+| Security and Governance | Reserve space for risk, policy, permissions, and operational controls. | Drafted |
 | Observability | Reserve space for telemetry, tracing, debugging, and production feedback. | Drafted |
-| Decision Matrix | Reserve space for comparison tables and design tradeoffs. | Not drafted |
-| Conclusion | Summarize final findings after evidence-backed sections exist. | Not drafted |
+| Decision Matrix | Reserve space for comparison tables and design tradeoffs. | Drafted |
+| Conclusion | Summarize final findings after evidence-backed sections exist. | Drafted |
 
 This inventory is a planning list, not paper prose. Section wording may change
 as evidence and paper structure mature.
