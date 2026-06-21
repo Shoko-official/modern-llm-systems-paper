@@ -175,9 +175,11 @@ def validate_foundation_files() -> None:
 
 
 def validate_section_stubs() -> None:
-    required_markers = ["Draft status: Not drafted.", "Purpose:", "Evidence requirement:"]
+    required_markers = ["Purpose:", "Evidence requirement:"]
     for relative_path in SECTION_STUB_FILES:
         text = read_text(ROOT / relative_path)
+        if "Draft status: Not drafted." not in text and "Draft status: Drafted." not in text:
+            fail(f"{relative_path} is missing Draft status marker ('Not drafted.' or 'Drafted.')")
         missing_markers = [marker for marker in required_markers if marker not in text]
         if missing_markers:
             fail(
