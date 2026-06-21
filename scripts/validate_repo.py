@@ -215,6 +215,7 @@ def validate_citations() -> None:
             claim_idx = -1
             section_idx = -1
             state_idx = -1
+            detail_idx = -1
             
             for idx, h in enumerate(headers):
                 if "citation key" in h or "key" in h:
@@ -227,6 +228,8 @@ def validate_citations() -> None:
                     section_idx = idx
                 elif "state" in h or "status" in h:
                     state_idx = idx
+                elif "detail" in h:
+                    detail_idx = idx
             
             if key_idx != -1:
                 j = i + 2
@@ -237,19 +240,23 @@ def validate_citations() -> None:
                     if len(row_parts) > key_idx:
                         key = row_parts[key_idx].replace("`", "")
                         if key and not key.startswith("---") and key.lower() != "citation key":
+                            if key in citation_keys:
+                                fail(f"Duplicate citation key '{key}' in references/index.md")
                             citation_keys.add(key)
                             
                             source_id = row_parts[source_idx].replace("`", "") if source_idx != -1 else ""
                             claim_id = row_parts[claim_idx].replace("`", "") if claim_idx != -1 else ""
                             section_target = row_parts[section_idx].replace("`", "") if section_idx != -1 else ""
                             state = row_parts[state_idx].replace("`", "") if state_idx != -1 else ""
+                            detail = row_parts[detail_idx].replace("`", "") if detail_idx != -1 else ""
                             
                             citation_records.append({
                                 "key": key,
                                 "source_id": source_id,
                                 "claim_id": claim_id,
                                 "section_target": section_target,
-                                "state": state
+                                "state": state,
+                                "detail": detail
                             })
                     j += 1
                 i = j
@@ -260,6 +267,8 @@ def validate_citations() -> None:
 
     # Check inline citations reference existing bibliography keys
     files_to_check = [ROOT / f for f in SECTION_STUB_FILES] + [ROOT / "paper" / "main.md"]
+    inline_citations_found = {}
+    
     for path in files_to_check:
         if not path.is_file():
             continue
@@ -268,6 +277,9 @@ def validate_citations() -> None:
         for key in inline_citations:
             if key not in citation_keys:
                 fail(f"Inline citation [@{key}] in {path.relative_to(ROOT)} does not match any entry in references/index.md")
+            if key not in inline_citations_found:
+                inline_citations_found[key] = []
+            inline_citations_found[key].append(path)
 
     # Check ledger alignment
     ledger_dir = ROOT.parent / "llm-systems-research-ledger"
@@ -290,10 +302,31 @@ def validate_citations() -> None:
         key = record["key"]
         source_id = record["source_id"]
         claim_id = record["claim_id"]
+        section_target = record["section_target"]
         state = record["state"]
+        detail = record["detail"]
         
+        if not re.match(r"^[a-zA-Z0-9_\-]+$", key):
+            fail(f"Invalid Citation Key format '{key}' in references/index.md")
+            
         if state and state not in allowed_states:
             fail(f"Invalid state '{state}' for citation key '{key}' in references/index.md")
+            
+        if state == "ready_for_bibliography":
+            if detail and detail.lower() not in {"none", "n/a", ""}:
+                fail(f"Citation key '{key}' is marked 'ready_for_bibliography' but has missing citation detail: '{detail}'")
+        elif state == "missing_citation_detail":
+            if not detail or detail.lower() in {"none", "n/a", ""}:
+                fail(f"Citation key '{key}' is marked 'missing_citation_detail' but lacks specific detail in references/index.md")
+                
+        if section_target and section_target != "N/A":
+            target_path = ROOT / section_target
+            if not target_path.is_file():
+                fail(f"Section target '{section_target}' for citation key '{key}' does not exist")
+            files_used = inline_citations_found.get(key, [])
+            rel_files_used = [str(p.relative_to(ROOT)).replace("\\", "/") for p in files_used]
+            if section_target not in rel_files_used:
+                fail(f"Citation key '{key}' lists target '{section_target}' but is not cited in that file")
             
         if claim_id and claim_id != "N/A":
             if not re.match(r"^claim-[A-Za-z0-9_\-]+$", claim_id):
