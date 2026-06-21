@@ -18,6 +18,8 @@ REQUIRED_FILES = [
     ".github/PULL_REQUEST_TEMPLATE.md",
     ".github/workflows/ci.yml",
     "figures/README.md",
+    "figures/generate_figures.py",
+    "figures/kv_cache_memory_curve.png",
     "paper/main.md",
     "paper/README.md",
     "references/index.md",
