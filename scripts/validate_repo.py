@@ -89,7 +89,7 @@ FOUNDATION_MARKERS = {
         "# Reference Index",
         "## Future Entry Shape",
         "## Current Entries",
-        "No reference entries yet.",
+        "| Citation Key | Ledger Source ID |",
     ],
     "figures/README.md": [
         "# Figures",
@@ -191,10 +191,132 @@ def lint_text() -> None:
                 fail(f"possible secret in {relative}: {pattern.pattern}")
 
 
+def validate_citations() -> None:
+    index_path = ROOT / "references" / "index.md"
+    if not index_path.is_file():
+        fail("references/index.md is missing")
+    
+    text = read_text(index_path)
+    lines = text.splitlines()
+    
+    citation_keys = set()
+    citation_records = []
+    
+    allowed_states = {"ready_for_bibliography", "missing_citation_detail", "missing_evidence", "blocked"}
+    
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        if line.startswith("|") and i + 1 < len(lines) and lines[i+1].startswith("|---"):
+            headers = [h.strip().lower() for h in line.split("|")[1:-1]]
+            
+            key_idx = -1
+            source_idx = -1
+            claim_idx = -1
+            section_idx = -1
+            state_idx = -1
+            
+            for idx, h in enumerate(headers):
+                if "citation key" in h or "key" in h:
+                    key_idx = idx
+                elif "source" in h:
+                    source_idx = idx
+                elif "claim" in h:
+                    claim_idx = idx
+                elif "section" in h:
+                    section_idx = idx
+                elif "state" in h or "status" in h:
+                    state_idx = idx
+            
+            if key_idx != -1:
+                j = i + 2
+                while j < len(lines) and lines[j].strip().startswith("|"):
+                    row_line = lines[j]
+                    row_parts = [p.strip() for p in row_line.split("|")[1:-1]]
+                    
+                    if len(row_parts) > key_idx:
+                        key = row_parts[key_idx].replace("`", "")
+                        if key and not key.startswith("---") and key.lower() != "citation key":
+                            citation_keys.add(key)
+                            
+                            source_id = row_parts[source_idx].replace("`", "") if source_idx != -1 else ""
+                            claim_id = row_parts[claim_idx].replace("`", "") if claim_idx != -1 else ""
+                            section_target = row_parts[section_idx].replace("`", "") if section_idx != -1 else ""
+                            state = row_parts[state_idx].replace("`", "") if state_idx != -1 else ""
+                            
+                            citation_records.append({
+                                "key": key,
+                                "source_id": source_id,
+                                "claim_id": claim_id,
+                                "section_target": section_target,
+                                "state": state
+                            })
+                    j += 1
+                i = j
+            else:
+                i += 1
+        else:
+            i += 1
+
+    # Check inline citations reference existing bibliography keys
+    files_to_check = [ROOT / f for f in SECTION_STUB_FILES] + [ROOT / "paper" / "main.md"]
+    for path in files_to_check:
+        if not path.is_file():
+            continue
+        content = read_text(path)
+        inline_citations = re.findall(r"\[@([a-zA-Z0-9_\-]+)\]", content)
+        for key in inline_citations:
+            if key not in citation_keys:
+                fail(f"Inline citation [@{key}] in {path.relative_to(ROOT)} does not match any entry in references/index.md")
+
+    # Check ledger alignment
+    ledger_dir = ROOT.parent / "llm-systems-research-ledger"
+    ledger_claims_dir = ledger_dir / "claims"
+    ledger_sources_dir = ledger_dir / "sources"
+    
+    has_ledger_claims = False
+    if ledger_claims_dir.is_dir():
+        claim_files = [p for p in ledger_claims_dir.glob("*.md") if p.name.lower() != "readme.md"]
+        if claim_files:
+            has_ledger_claims = True
+            
+    has_ledger_sources = False
+    if ledger_sources_dir.is_dir():
+        source_files = [p for p in ledger_sources_dir.glob("*.md") if p.name.lower() != "readme.md"]
+        if source_files:
+            has_ledger_sources = True
+            
+    for record in citation_records:
+        key = record["key"]
+        source_id = record["source_id"]
+        claim_id = record["claim_id"]
+        state = record["state"]
+        
+        if state and state not in allowed_states:
+            fail(f"Invalid state '{state}' for citation key '{key}' in references/index.md")
+            
+        if claim_id and claim_id != "N/A":
+            if not re.match(r"^claim-[A-Za-z0-9_\-]+$", claim_id):
+                fail(f"Invalid Claim ID format '{claim_id}' for citation key '{key}' in references/index.md")
+            if has_ledger_claims:
+                claim_file = ledger_claims_dir / f"{claim_id}.md"
+                if not claim_file.is_file():
+                    fail(f"Referenced claim file {claim_id}.md does not exist in ledger repository")
+                    
+        if source_id and source_id != "N/A":
+            if not re.match(r"^source-[A-Za-z0-9_\-]+$", source_id):
+                fail(f"Invalid Source ID format '{source_id}' for citation key '{key}' in references/index.md")
+            if has_ledger_sources:
+                source_file = ledger_sources_dir / f"{source_id}.md"
+                if not source_file.is_file():
+                    fail(f"Referenced source file {source_id}.md does not exist in ledger repository")
+
+
 def run_validate() -> None:
     validate_required_paths()
     validate_foundation_files()
     validate_section_stubs()
+    validate_citations()
 
 
 def run_lint() -> None:
