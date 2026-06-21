@@ -21,9 +21,9 @@ Initial section inventory:
 
 | Section | Purpose | Draft status |
 |---|---|---|
-| Abstract | Summarize the paper after the main sections stabilize. | Not drafted |
-| Introduction | Define the paper scope, audience, and motivating questions. | Not drafted |
-| System Layers | Organize the major layers of modern LLM systems. | Not drafted |
+| Abstract | Summarize the paper after the main sections stabilize. | Drafted |
+| Introduction | Define the paper scope, audience, and motivating questions. | Drafted |
+| System Layers | Organize the major layers of modern LLM systems. | Drafted |
 | Training and Adaptation | Reserve space for training, post-training, and alignment discussion. | Not drafted |
 | Inference and Serving | Reserve space for runtime, latency, throughput, and cost discussion. | Not drafted |
 | Retrieval and Memory | Reserve space for retrieval, grounding, and memory-related systems. | Not drafted |
