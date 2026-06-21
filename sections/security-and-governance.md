@@ -7,10 +7,17 @@ Purpose: Reserve space for risk, policy, permissions, and operational controls.
 Evidence requirement: Future safety or governance claims must use approved
 sources and clearly separate policy notes from measured results.
 
-## Draft Content Stub
+## Risk Management
 
-* **Risk Management**: Neutral placeholder for system risks and mitigation strategies.
-* **Policy Controls**: Neutral placeholder for access control, auditing, and compliance policy.
-* **Operational Protection**: Neutral placeholder for system level firewalls and model guardrails.
+* **Threat Modeling**: Identification of vulnerabilities, data extraction paths, and model poisoning risks [@source-adversarial-2024].
+* **Adversarial Input Defense**: Real-time evaluation of prompt injections and system jailbreaks.
 
-This section drafts security frameworks and governance policies relevant to large-scale LLM application deployment.
+## Policy Controls
+
+* **Access Control**: Dynamic credentialing, workspace isolation, and model rate limits.
+* **Compliance Policy**: Audit tracing and user privacy guarantees matching organizational guidelines.
+
+## Operational Protection
+
+* **Model Guardrails**: Input/output filtering to intercept sensitive data leakage.
+* **Operational Isolation**: Strict boundary separations between agent environments and system cores.
