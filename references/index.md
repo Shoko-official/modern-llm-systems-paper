@@ -17,7 +17,8 @@ Future entries should identify:
 
 ## Current Entries
 
-No reference entries yet.
+| Citation Key | Ledger Source ID | Ledger Claim ID | Paper Section Target | Readiness State | Missing Citation Detail |
+|---|---|---|---|---|---|
 
 ## Current Limits
 
