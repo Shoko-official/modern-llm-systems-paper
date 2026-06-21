@@ -373,12 +373,29 @@ def validate_figure_generation() -> None:
         fail("figures/generate_figures.py failed to produce figures/kv_cache_memory_curve.png")
 
 
+def validate_latex_compilation() -> None:
+    try:
+        import sys
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import compile_paper
+        import importlib
+        importlib.reload(compile_paper)
+        compile_paper.compile_latex()
+        compile_paper.package_arxiv()
+    except Exception as e:
+        fail(f"LaTeX compile or packaging failed: {e}")
+    finally:
+        if str(ROOT / "scripts") in sys.path:
+            sys.path.remove(str(ROOT / "scripts"))
+
+
 def run_validate() -> None:
     validate_required_paths()
     validate_foundation_files()
     validate_section_stubs()
     validate_citations()
     validate_figure_generation()
+    validate_latex_compilation()
 
 
 def run_lint() -> None:
