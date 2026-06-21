@@ -19,6 +19,8 @@ Future entries should identify:
 
 | Citation Key | Ledger Source ID | Ledger Claim ID | Paper Section Target | Readiness State | Missing Citation Detail |
 |---|---|---|---|---|---|
+| source-attention-2017 | source-attention-2017 | claim-attention-parallelism | sections/introduction.md | ready_for_bibliography | None |
+| source-kv-cache-2023 | source-kv-cache-2023 | claim-kv-cache-memory-growth | sections/inference-and-serving.md | missing_citation_detail | page number locator needed |
 
 ## Current Limits
 
