@@ -349,11 +349,34 @@ def validate_citations(root_path: Path = ROOT) -> None:
                     fail(f"Referenced source file {source_id}.md does not exist in ledger repository")
 
 
+def validate_figure_generation() -> None:
+    output_file = ROOT / "figures" / "kv_cache_memory_curve.png"
+    if output_file.is_file():
+        output_file.unlink()
+        
+    sys.path.insert(0, str(ROOT / "figures"))
+    try:
+        import generate_figures
+        # Reload if already imported
+        import importlib
+        importlib.reload(generate_figures)
+        generate_figures.main()
+    except Exception as e:
+        fail(f"Failed to execute figures/generate_figures.py: {e}")
+    finally:
+        if str(ROOT / "figures") in sys.path:
+            sys.path.remove(str(ROOT / "figures"))
+        
+    if not output_file.is_file():
+        fail("figures/generate_figures.py failed to produce figures/kv_cache_memory_curve.png")
+
+
 def run_validate() -> None:
     validate_required_paths()
     validate_foundation_files()
     validate_section_stubs()
     validate_citations()
+    validate_figure_generation()
 
 
 def run_lint() -> None:
