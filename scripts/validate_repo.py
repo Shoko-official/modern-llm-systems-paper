@@ -39,6 +39,7 @@ REQUIRED_FILES = [
     "sections/system-layers.md",
     "sections/training-and-adaptation.md",
     "tests/README.md",
+    "tests/test_citations.py",
 ]
 
 REQUIRED_DIRECTORIES = [
@@ -193,8 +194,8 @@ def lint_text() -> None:
                 fail(f"possible secret in {relative}: {pattern.pattern}")
 
 
-def validate_citations() -> None:
-    index_path = ROOT / "references" / "index.md"
+def validate_citations(root_path: Path = ROOT) -> None:
+    index_path = root_path / "references" / "index.md"
     if not index_path.is_file():
         fail("references/index.md is missing")
     
@@ -268,7 +269,7 @@ def validate_citations() -> None:
             i += 1
 
     # Check inline citations reference existing bibliography keys
-    files_to_check = [ROOT / f for f in SECTION_STUB_FILES] + [ROOT / "paper" / "main.md"]
+    files_to_check = [root_path / f for f in SECTION_STUB_FILES] + [root_path / "paper" / "main.md"]
     inline_citations_found = {}
     
     for path in files_to_check:
@@ -278,13 +279,13 @@ def validate_citations() -> None:
         inline_citations = re.findall(r"\[@([a-zA-Z0-9_\-]+)\]", content)
         for key in inline_citations:
             if key not in citation_keys:
-                fail(f"Inline citation [@{key}] in {path.relative_to(ROOT)} does not match any entry in references/index.md")
+                fail(f"Inline citation [@{key}] in {path.relative_to(root_path)} does not match any entry in references/index.md")
             if key not in inline_citations_found:
                 inline_citations_found[key] = []
             inline_citations_found[key].append(path)
 
     # Check ledger alignment
-    ledger_dir = ROOT.parent / "llm-systems-research-ledger"
+    ledger_dir = root_path.parent / "llm-systems-research-ledger"
     ledger_claims_dir = ledger_dir / "claims"
     ledger_sources_dir = ledger_dir / "sources"
     
@@ -322,11 +323,11 @@ def validate_citations() -> None:
                 fail(f"Citation key '{key}' is marked 'missing_citation_detail' but lacks specific detail in references/index.md")
                 
         if section_target and section_target != "N/A":
-            target_path = ROOT / section_target
+            target_path = root_path / section_target
             if not target_path.is_file():
                 fail(f"Section target '{section_target}' for citation key '{key}' does not exist")
             files_used = inline_citations_found.get(key, [])
-            rel_files_used = [str(p.relative_to(ROOT)).replace("\\", "/") for p in files_used]
+            rel_files_used = [str(p.relative_to(root_path)).replace("\\", "/") for p in files_used]
             if section_target not in rel_files_used:
                 fail(f"Citation key '{key}' lists target '{section_target}' but is not cited in that file")
             
@@ -358,9 +359,19 @@ def run_lint() -> None:
     lint_text()
 
 
+def run_unit_tests() -> None:
+    import unittest
+    suite = unittest.defaultTestLoader.discover(str(ROOT / "tests"), pattern="test_*.py")
+    runner = unittest.TextTestRunner(verbosity=2)
+    result = runner.run(suite)
+    if not result.wasSuccessful():
+        fail("Unit tests failed.")
+
+
 def run_test() -> None:
     run_validate()
     run_lint()
+    run_unit_tests()
 
 
 def main(argv: list[str]) -> int:
