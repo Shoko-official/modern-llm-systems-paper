@@ -23,3 +23,15 @@ Deploying LLMs in production exposes systems to unique risks, such as prompt inj
 
 * **Model Guardrails**: Output filters intercept unsafe responses, policy violations, or potential leakage of personally identifiable information (PII).
 * **Operational Isolation**: Running tool executions in sandboxed environments isolates the agent runtime from the host network and system core.
+
+## Safety & Compliance Audit
+
+<!-- COMPLIANCE_STATS_START -->
+| Metric | Value |
+|---|---|
+| Compliance Status | **PASSED** |
+| Total Prompts Checked | 9 |
+| Injection Block Rate | 100.00% (Target: >= 95%) |
+| False Positive Rate | 0.00% (Target: <= 5%) |
+<!-- COMPLIANCE_STATS_END -->
+
