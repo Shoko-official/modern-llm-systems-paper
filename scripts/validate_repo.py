@@ -20,6 +20,7 @@ REQUIRED_FILES = [
     "figures/README.md",
     "figures/generate_figures.py",
     "figures/kv_cache_memory_curve.png",
+    "figures/observability_latency_overhead.png",
     "paper/main.md",
     "paper/README.md",
     "references/bibliography.bib",
@@ -353,8 +354,11 @@ def validate_citations(root_path: Path = ROOT) -> None:
 
 def validate_figure_generation() -> None:
     output_file = ROOT / "figures" / "kv_cache_memory_curve.png"
+    output_file_obs = ROOT / "figures" / "observability_latency_overhead.png"
     if output_file.is_file():
         output_file.unlink()
+    if output_file_obs.is_file():
+        output_file_obs.unlink()
         
     sys.path.insert(0, str(ROOT / "figures"))
     try:
@@ -371,6 +375,8 @@ def validate_figure_generation() -> None:
         
     if not output_file.is_file():
         fail("figures/generate_figures.py failed to produce figures/kv_cache_memory_curve.png")
+    if not output_file_obs.is_file():
+        fail("figures/generate_figures.py failed to produce figures/observability_latency_overhead.png")
 
 
 def validate_latex_compilation() -> None:

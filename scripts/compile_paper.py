@@ -40,7 +40,13 @@ def clean_markdown_for_latex(text: str) -> str:
         
         # Skip specific headers or metadata lines
         if any(lower_line.startswith(h) for h in skip_headers):
+            # Skip this line and all subsequent non-empty lines (multi-line metadata paragraph)
             i += 1
+            while i < len(lines) and lines[i].strip() != "":
+                i += 1
+            # Also skip the trailing empty line if present
+            if i < len(lines) and lines[i].strip() == "":
+                i += 1
             continue
             
         cleaned_lines.append(line)
@@ -160,6 +166,14 @@ def compile_latex() -> None:
     else:
         print(f"Warning: Figure not found at {fig_src}")
         
+    fig_obs_src = FIGURES_DIR / "observability_latency_overhead.png"
+    fig_obs_dst = DIST_DIR / "observability_latency_overhead.png"
+    if fig_obs_src.is_file():
+        shutil.copy2(fig_obs_src, fig_obs_dst)
+        print(f"Copied figure to {fig_obs_dst}")
+    else:
+        print(f"Warning: Figure not found at {fig_obs_src}")
+        
     print("LaTeX source generation complete.")
 
 def package_arxiv() -> None:
@@ -176,7 +190,8 @@ def package_arxiv() -> None:
     files_to_zip = [
         "paper.tex",
         "bibliography.bib",
-        "kv_cache_memory_curve.png"
+        "kv_cache_memory_curve.png",
+        "observability_latency_overhead.png"
     ]
     
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zip_file:

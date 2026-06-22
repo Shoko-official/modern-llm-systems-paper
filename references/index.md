@@ -19,10 +19,13 @@ Future entries should identify:
 
 | Citation Key | Ledger Source ID | Ledger Claim ID | Paper Section Target | Readiness State | Missing Citation Detail |
 |---|---|---|---|---|---|
-| source-attention-2017 | source-placeholder-alpha-method-2026 | claim-alpha-neutral-performance | sections/introduction.md | ready_for_bibliography | None |
-| source-kv-cache-2023 | source-placeholder-delta-optimizer-2026 | claim-delta-memory-footprint | sections/inference-and-serving.md | missing_citation_detail | page number locator needed |
-| source-dapper-2010 | source-placeholder-gamma-framework-2026 | claim-gamma-integration-flexibility | sections/observability.md | ready_for_bibliography | None |
-| source-adversarial-2024 | source-placeholder-epsilon-scheduler-2026 | claim-epsilon-allocation-efficiency | sections/security-and-governance.md | missing_citation_detail | page number locator needed |
+| source-attention-2017 | source-attention-2017 | claim-attention-transformer | sections/introduction.md | ready_for_bibliography | None |
+| source-kv-cache-2023 | source-kv-cache-2023 | claim-kv-cache-paged-attention | sections/inference-and-serving.md | missing_citation_detail | page number locator needed |
+| source-dapper-2010 | source-dapper-2010 | claim-dapper-distributed-tracing | sections/observability.md | ready_for_bibliography | None |
+| source-adversarial-2024 | source-adversarial-2024 | claim-adversarial-prompt-injection | sections/security-and-governance.md | missing_citation_detail | page number locator needed |
+| source-opentelemetry-2023 | source-opentelemetry-2023 | claim-tracing-context-propagation-overhead | sections/observability.md | ready_for_bibliography | None |
+| source-prometheus-2015 | source-prometheus-2015 | claim-metrics-pull-model-efficiency | sections/observability.md | ready_for_bibliography | None |
+| source-llm-agent-tracing-2024 | source-llm-agent-tracing-2024 | claim-llm-span-retrieval-attribution | sections/observability.md | ready_for_bibliography | None |
 
 ## Current Limits
 
