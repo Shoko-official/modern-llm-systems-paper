@@ -21,6 +21,7 @@ SECTION_FILES_ORDER = [
     "retrieval-and-memory.md",
     "agents-and-tool-use.md",
     "agent-runtime.md",
+    "dataset-generation.md",
     "deployment.md",
     "evaluation.md",
     "security-and-governance.md",
