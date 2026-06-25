@@ -27,21 +27,21 @@ Below is the consolidated performance data captured from the deployment pipeline
 | Service / Layer | Average Latency |
 | :--- | :--- |
 | Memory | 0.333 ms |
-| Rag | 0.999 ms |
+| Rag | 1.002 ms |
 | Security | 0.000 ms |
-| Agent-runtime | 0.650 ms |
+| Agent-runtime | 1.000 ms |
 
 ### Security Auditing Summary
 
 | Telemetry Dimension | Capture Metric |
 | :--- | :--- |
-| **Trace ID** | `266da896eafb48548dbbdc4755d1e5bb` |
-| **Total Captured Spans** | `40` |
-| **Tool Call Audits** | `10` |
+| **Trace ID** | `446377bdc65d4172b2e96b2a78dceca0` |
+| **Total Captured Spans** | `15` |
+| **Tool Call Audits** | `4` |
 | **Policy Blocks** | `1` |
-| **Block Rate** | `10.0%` |
+| **Block Rate** | `25.0%` |
 
-*Data regenerated and validated automatically: 2026-06-23T07:07:27.614701Z*
+*Data regenerated and validated automatically: 2026-06-23T06:57:54.081486Z*
 
 ## Reproducibility Checklist
 
