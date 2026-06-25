@@ -69,8 +69,3 @@ Each `execute()` call emits a span conformant to `llm-systems-core/schemas/span.
   }
 }
 ```
-
-## End-to-End Orchestration
-
-For detailed integration, latency profiles, and safety blocking telemetry in a complete deployment scenario, see [Deployment and End-to-End Orchestration](deployment.md).
-
