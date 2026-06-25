@@ -20,8 +20,6 @@ SECTION_FILES_ORDER = [
     "inference-and-serving.md",
     "retrieval-and-memory.md",
     "agents-and-tool-use.md",
-    "agent-runtime.md",
-    "deployment.md",
     "evaluation.md",
     "security-and-governance.md",
     "observability.md",
